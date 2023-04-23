@@ -1,4 +1,3 @@
 # Task Tracker
 # Azubi Africa Task 
-This aPllication contains list of task to track 
-
+This Application contains list of task to track  !
