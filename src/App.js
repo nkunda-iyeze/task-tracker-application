@@ -1,15 +1,7 @@
-
-import './App.css';
-
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        
-        
-      </header>
-    </div>
-  );
+    <h1 className="bg-blue-800 text-white">
+      Hello world!
+    </h1>
+  )
 }
-
-export default App;
