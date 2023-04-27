@@ -36,7 +36,7 @@ function AddTask() {
       <label htmlFor="task" className="flex justify-start my-1 text-xs font-semibold">Task</label>
       <input onChange={(e)=>setTaskInput(e.target.value)} value={taskInput} type="text" name="task" className="border border-gray my-1 py-2 px-1 rounded focus:outline-none"/>
       <label htmlFor="day&time" className="flex justify-start my-1 text-xs font-semibold">Day & Time</label>
-      <input onChange={(e)=>setDateInput(e.target.value)} value={dateInput}  type="text" name="day&time" className="border border-gray  my-1 py-2 px-1 rounded focus:outline-none"/>
+      <input onChange={(e)=>setDateInput(e.target.value)} value={dateInput}  type="date" name="day&time" className="border border-gray  my-1 py-2 px-1 rounded focus:outline-none"/>
       
       <label htmlFor="reminder" className="inline-block justify-start my-1 text-xs font-semibold">Set reminder</label>
       <div className="flex justify-center">
