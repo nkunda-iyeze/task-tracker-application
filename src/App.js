@@ -1,29 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import CustomButton from "./components/CustomButton";
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
+import { db } from "./firebase";
+import {collection,onSnapshot,query} from "firebase/firestore"
 export default function App() {
-  const [tasks,setTasks] = useState([{id:'1',
-  task: 'Task 1',
-  day: 'Monday',
-  time: '12:00 AM',
-  reminder: false},
-  {id:'2',
-  task: 'Task 2',
-  day: 'Monday',
-  time: '12:00 AM',
-  reminder: false},
-  {id:'3',
-  task: 'Task 3',
-  day: 'Monday',
-  time: '12:00 AM',
-  reminder: false},
-  ]);
+  const [tasks,setTasks] = useState([]);
   const [show, setShow] = useState(false);
   const handleShow = ()=>{
     setShow(!show);
   }
+  // create task list 
+  // read tasks from firebase
+  useEffect(()=>{
+    const q = query(collection(db,'tasks'));
+    const unsubsribe = onSnapshot(q,(QuerySnapshot)=>{
+      let tasksArray = []
+      QuerySnapshot.forEach((doc)=>{
+        tasksArray.push({...doc.data(),id: doc.id});
+      });
+      setTasks(tasksArray);
+    })
+      return () => unsubsribe();
+  },[]);
+  // add task to firebase
+  // delete task from firebase
+  // update tasks in firebase
+
   
   return (
     <div className="flex justify-center text-center bg-generalBackground h-screen">
