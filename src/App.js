@@ -8,10 +8,13 @@ import {collection,onSnapshot,query} from "firebase/firestore"
 export default function App() {
   const [tasks,setTasks] = useState([]);
   const [show, setShow] = useState(false);
+  
+  
+//  handle event show
   const handleShow = ()=>{
     setShow(!show);
   }
-  // create task list 
+ 
   // read tasks from firebase
   useEffect(()=>{
     const q = query(collection(db,'tasks'));
@@ -24,7 +27,7 @@ export default function App() {
     })
       return () => unsubsribe();
   },[]);
-  // add task to firebase
+  
   // delete task from firebase
   // update tasks in firebase
 
@@ -35,9 +38,9 @@ export default function App() {
         <Header/>
         <div className="mx-10 my-9 ">
           <div>
-          <CustomButton onshow={handleShow} show={show}/>
+          <CustomButton onshow={handleShow} show={show} tasks={tasks} />
          { 
-         show && <AddTask/>
+         show && <AddTask />
          }
           </div>
           <div>
