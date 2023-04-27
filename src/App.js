@@ -45,7 +45,7 @@ export default function App() {
           </div>
           <div>
             {
-              tasks.length > 0 ? tasks.map(task=>(<TaskList key={task.id} task={task}/>)) :('No tasks found !')
+              tasks.length > 0 ? tasks.map((task)=>(<TaskList key={task.id} task={task}/>)) :('No tasks found !')
             }
           </div>
          </div>
