@@ -4,7 +4,12 @@ import { useState } from "react";
 function AddTask() {
   const [taskInput,setTaskInput] = useState("")
   const [dateInput,setDateInput] = useState("");
-  // const [reminder,setReminder] = useState(false);
+  const [reminder,setReminder] = useState(false);
+  
+  // handleCheckboxChange event
+  function handleCheckboxChange(event) {
+    setReminder(event.target.checked);
+  }
 
    // create task to firebase db
    const createTask = async (element) =>{
@@ -16,12 +21,14 @@ function AddTask() {
     await addDoc(collection(db,'tasks'),{
       task:taskInput,
       date:dateInput,
-      reminder:false
+      reminder:reminder
     })
     setTaskInput('');
     setDateInput('')
 
   }
+  
+
   return (
 
     <div className="">
@@ -33,7 +40,7 @@ function AddTask() {
       
       <label htmlFor="reminder" className="inline-block justify-start my-1 text-xs font-semibold">Set reminder</label>
       <div className="flex justify-center">
-      <input  type="checkbox" name="reminder" />
+      <input  type="checkbox" name="reminder" checked={reminder} onChange={handleCheckboxChange}/>
       </div>
       <button className="bg-buttonBackground text-white my-3 py-3 rounded-md font-semibold font-sans">Save Task</button>
     </form>
