@@ -9,11 +9,41 @@ export default function App() {
   const [show, setShow] = useState(false);
   const [fetchError, setFetchError] = useState("")
   
-//  handle event show
+// ! handle event show
   const handleShow = ()=>{
     setShow(!show);
   }
+
+  // ! get single task list
+  const getSingleTask = async(id)=>{
+    const response = await fetch("http://localhost:5000/tasks/"+id);
+    const data = await response.json();
+    return data;
+
+  }
+  // ! update single task list
+  const toggleReminder = async(id)=>{
+    const singleTask = await getSingleTask(id);
+    const updatedTask = {...singleTask,reminder:!singleTask.reminder}
+   try { 
+    await fetch("http://localhost:5000/tasks/"+id,{
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedTask)
+    })}catch (error){
+      console.log(error);
+    }
+    setTasks(tasks.map(task=> task.id === id ? {
+        ...task,
+        reminder:!task.reminder,
+      }:task
+    ));
+  }
  
+
+  //!    fetch tasks list
   useEffect(()=>{
     const fetchTasks = async() => {
       try{
@@ -29,6 +59,7 @@ export default function App() {
     }
     (async()=> await fetchTasks())();
   },[]);
+
   
 
   return (
@@ -44,7 +75,7 @@ export default function App() {
           </div>
           <div>
             {
-              tasks.length > 0 ? tasks.map((task)=>(<TaskList key={task.id} task={task} fetchError ={fetchError} />)) :('No tasks found !')
+              tasks.length > 0 ? tasks.map((task)=>(<TaskList key={task.id} task={task} fetchError ={fetchError}  onToggle={toggleReminder}/>)) :('No tasks found !')
             }
           </div>
          </div>

@@ -1,6 +1,7 @@
 import {FiX } from "react-icons/fi";
 
-function TaskList({task}) {
+function TaskList({task,onToggle}) {
+
     const deleteTodo = async(id)=>{
       if(window.confirm("Are you sure you want to remove this ?")){
         await fetch("http://localhost:5000/tasks/"+id,{
@@ -13,9 +14,10 @@ function TaskList({task}) {
         console.log(error.message)
       });
       }
+     
   }
   return (
-    <div className={task.reminder === true ? `flex justify-between my-6 p-2 shadow-3xl rounded-lg border-l-2 border-buttonBackground` : `flex justify-between my-6 p-2 shadow-3xl rounded-lg`}>
+    <div className={task.reminder === true ? `flex justify-between my-6 p-2 shadow-3xl rounded-lg border-l-2 border-buttonBackground` : `flex justify-between my-6 p-2 shadow-3xl rounded-lg`} onDoubleClick={()=>onToggle(task.id)}>
             <div className="flex flex-col justify-items-start">
               <p className="font-bold text-md flex ">{task.title}</p>
               <p className="font-semibold text-sm ">{task.date}</p>
